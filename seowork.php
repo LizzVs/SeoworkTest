@@ -4,9 +4,9 @@ $sign_count = 50;
 
 // Функция для генерации 50-значных чисел
 function GetBigNumber($sign_count) {
-    $str = rand(1,9);
+    $str = rand(1, 9);
     for ($i = 1; $i < $sign_count; $i++) {
-        $str .= rand(0,9);
+        $str .= rand(0, 9);
     }
     return $str;
 }
@@ -16,12 +16,12 @@ $a = Array();
 echo "Массив: \n";
 for ($i = 0; $i < $number_count; $i++) {
     array_push($a, GetBigNumber($sign_count));
-    echo $i+1, " - ", $a[$i], "\n";
+    echo $i + 1, " - ", $a[$i], "\n";
 }
 
 // Способ 1
 // Сложение чисел через array_sum
-echo "Способ 1: Сумма - " . sprintf("%.0F", array_sum($a));
+echo "Способ 1: Сумма - ", sprintf("%.0F", array_sum($a));
 
 // Способ 2
 // Сложение с помощью библиотеки BCMath, позволяющей работать с большими числами
@@ -29,7 +29,7 @@ $sum = 0;
 for ($i = 0; $i < $number_count; $i++) {
     $sum = bcadd($sum, $a[$i]);
 }
-echo "\nСпособ 2: Сумма - " . $sum;
+echo "\nСпособ 2: Сумма - ", $sum;
 
 // Способ 3
 // Сложение с помощью библиотеки GMP (отличий от BCMath нет, но работает только с целыми значениями)
@@ -37,7 +37,7 @@ $sum = 0;
 for ($i = 0; $i < $number_count; $i++) {
     $sum = gmp_add($sum, $a[$i]);
 }
-echo "\nСпособ 3: Сумма - " . $sum;
+echo "\nСпособ 3: Сумма - ", $sum;
 
 // Способ 4
 // Поразрядное сложение
@@ -55,19 +55,19 @@ for ($i = 1; $i < $number_count; $i++) {
             $plus = 0;
         }    
         // Сложение чисел одного разряда
-        $res += $sum[$j+$sign] + $a[$i][$j];
+        $res += $sum[$j + $sign] + $a[$i][$j];
         // Запомнить 1 для следующего разряда, если сумма >= 10
         if ($res >= 10 ) {
             $plus = 1;
         }
         // Результат вычислений в разряде
-        $sum[$j+$sign] = strval($res % 10);
+        $sum[$j + $sign] = strval($res % 10);
         $res = 0;
         // Добавление нового разряда
         if ($j == 0 && $plus == 1) {
             $sum += 10**($sign_count);
-            $sum = sprintf("%.0F",$sum);
+            $sum = sprintf("%.0F", $sum);
         }
     }
 }
-echo "\nСпособ 4: Сумма - " . sprintf("%.0F",$sum);
+echo "\nСпособ 4: Сумма - ", sprintf("%.0F", $sum);
