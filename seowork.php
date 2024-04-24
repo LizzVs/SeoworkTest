@@ -16,7 +16,7 @@ $a = Array();
 echo "Массив: \n";
 for ($i = 0; $i < $number_count; $i++) {
     array_push($a, GetBigNumber($sign_count));
-    echo $a[$i] . "\n";
+    echo $i+1, " - ", $a[$i], "\n";
 }
 
 // Способ 1
@@ -32,6 +32,14 @@ for ($i = 0; $i < $number_count; $i++) {
 echo "\nСпособ 2: Сумма - " . $sum;
 
 // Способ 3
+// Сложение с помощью библиотеки GMP (отличий от BCMath нет, но работает только с целыми значениями)
+$sum = 0;
+for ($i = 0; $i < $number_count; $i++) {
+    $sum = gmp_add($sum, $a[$i]);
+}
+echo "\nСпособ 3: Сумма - " . $sum;
+
+// Способ 4
 // Поразрядное сложение
 $sum = $a[0];
 for ($i = 1; $i < $number_count; $i++) {
@@ -62,8 +70,4 @@ for ($i = 1; $i < $number_count; $i++) {
         }
     }
 }
-echo "\nСпособ 3: Сумма - " . sprintf("%.0F",$sum);
-
-// Способ 4
-//
-
+echo "\nСпособ 4: Сумма - " . sprintf("%.0F",$sum);
